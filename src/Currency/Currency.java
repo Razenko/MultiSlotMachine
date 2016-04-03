@@ -5,5 +5,6 @@ package Currency;
  */
 public interface Currency {
     public int GetWeight();
+
     public double Value();
 }

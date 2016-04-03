@@ -3,7 +3,7 @@ package Currency;
 /**
  * Represents one euro.
  */
-public class OneEuro implements Currency{
+public class OneEuro implements Currency {
     @Override
     public int GetWeight() {
         return 10;

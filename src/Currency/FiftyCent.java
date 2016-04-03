@@ -6,7 +6,7 @@ package Currency;
 public class FiftyCent implements Currency {
     @Override
     public int GetWeight() {
-        return 5;
+        return 20;
     }
 
     @Override
