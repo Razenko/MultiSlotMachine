@@ -6,9 +6,11 @@ import java.awt.event.ActionListener;
 
 /**
  * View for SlotMachine.
+ * Represents the GUI component of SlotMachine.
  */
 public class SlotMachineView extends JFrame {
 
+    //Fields
     private JLabel iconOne = new JLabel();
     private JLabel iconTwo = new JLabel();
     private JLabel iconThree = new JLabel();
@@ -18,12 +20,25 @@ public class SlotMachineView extends JFrame {
     private JButton twoEuroButton = new JButton();
     private JLabel cashLabel = new JLabel();
 
-
+    /**
+     * Constructor
+     *
+     * @param xLocation X-Pos
+     * @param yLocation Y-Pos
+     * @param title     Title of Window
+     */
     public SlotMachineView(int xLocation, int yLocation, String title) {
         InitGui(xLocation, yLocation, title);
     }
 
-    private void InitGui(int xLocation, int yLocation, String title) {
+    /**
+     * Create Gui
+     *
+     * @param xLocation X-Pos
+     * @param yLocation Y-Pos
+     * @param title     Title of Window
+     */
+    void InitGui(int xLocation, int yLocation, String title) {
         JPanel sPanel = new JPanel();
         sPanel.setLayout(null);
         sPanel.add(iconOne);
@@ -63,6 +78,13 @@ public class SlotMachineView extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Set slot images/icons
+     *
+     * @param one   First Slot
+     * @param two   Second Slot
+     * @param three Third Slot
+     */
     void SetSlots(ImageIcon one, ImageIcon two, ImageIcon three) {
         iconOne.setIcon(one);
         iconTwo.setIcon(two);
@@ -75,11 +97,20 @@ public class SlotMachineView extends JFrame {
         iconThree.repaint();
     }
 
+    /**
+     * Disable view
+     */
     void KillScreen() {
         this.setVisible(false);
         this.dispose();
     }
 
+    /**
+     * Retrieve Slot image
+     *
+     * @param number Slot number
+     * @return ImageIcon of slot
+     */
     ImageIcon GetSlotNumber(int number) {
 
         if (number == 1) {
@@ -94,18 +125,29 @@ public class SlotMachineView extends JFrame {
         return null;
     }
 
+    /**
+     * Display amount of cash in machine
+     *
+     * @param value Amount of cash
+     */
     void SetCashLabel(String value) {
         cashLabel.setText("Cash: €" + value);
         cashLabel.revalidate();
         cashLabel.repaint();
     }
 
+    /**
+     * Load image for currency buttons
+     */
     private void ImageLoader() {
         fiftyCentButton.setIcon(new ImageIcon("icons/50eurocent.png"));
         oneEuroButton.setIcon(new ImageIcon("icons/oneuro.png"));
         twoEuroButton.setIcon(new ImageIcon("icons/twoeuro.png"));
     }
 
+    /*
+        Listener for buttons
+     */
     void AddSpinListener(ActionListener listen) {
         spinButton.addActionListener(listen);
     }
@@ -122,6 +164,11 @@ public class SlotMachineView extends JFrame {
         twoEuroButton.addActionListener(listen);
     }
 
+    /**
+     * Display a (error) message
+     *
+     * @param errorMessage Message to display
+     */
     void DisplayErrorMessage(String errorMessage) {
         JOptionPane.showMessageDialog(this, errorMessage);
     }

@@ -5,13 +5,15 @@ import Master.MasterView;
 import java.awt.*;
 
 /**
- * Created by Marcel on 29-3-2016.
+ * Main Class
+ * Starts up SlotMachine Manager (Master)
  */
 public class Main {
     public static void main(String[] args) {
         CreateMaster();
     }
 
+    /* Creates SlotMachine Manager */
     private static void CreateMaster() {
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         MasterModel mModel = new MasterModel();

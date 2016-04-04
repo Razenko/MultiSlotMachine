@@ -16,14 +16,27 @@ import java.util.Random;
  */
 public class SlotMachineActive implements SlotMachineState {
 
+    //Fields
     private SlotMachineModel slotMachine;
+    private SystemIterator icons;
 
+    /**
+     * Constructor
+     *
+     * @param slotMachine SlotMachineModel
+     */
     public SlotMachineActive(SlotMachineModel slotMachine) {
         this.slotMachine = slotMachine;
+        icons = new Icons();
     }
 
+    /**
+     * Iterate through and return a random slot image (to be used on spin)
+     * Used the iterator pattern
+     *
+     * @return Image
+     */
     public ImageIcon GetSlotImage() {
-        SystemIterator icons = new Icons();
         Iterator currentIcons = icons.CreateIterator();
         Random rnd = new Random();
         int rnum = rnd.nextInt(9);
@@ -33,16 +46,20 @@ public class SlotMachineActive implements SlotMachineState {
             if (count == rnum) {
                 theImage = (ImageIcon) currentIcons.next();
                 break;
-
             }
             currentIcons.next();
             count++;
         }
         return theImage;
-
     }
 
 
+    /**
+     * Insert currency
+     *
+     * @param currency Currency to insert
+     * @return Message
+     */
     public String InsertCurrency(Currency currency) {
         if (!slotMachine.CheckCashFull()) {
             this.slotMachine.AddCash(currency);
@@ -53,7 +70,12 @@ public class SlotMachineActive implements SlotMachineState {
         }
     }
 
-    @Override
+    /**
+     * Remover currency
+     *
+     * @param currency Currency to remove
+     * @return Message
+     */
     public String RemoveCurrency(Currency currency) {
         if (this.slotMachine.ReturnTotalCash() >= currency.Value()) {
             this.slotMachine.CurrencyExchange(currency);
@@ -62,11 +84,21 @@ public class SlotMachineActive implements SlotMachineState {
         } else {
             slotMachine.SetState(slotMachine.getInActive());
             return "Not enough cash in System! Please insert coins!";
-
         }
     }
 
-
+    /**
+     * Check if the user has won a prize
+     * Possible states:
+     * Three "Big Win" images = Jackpot
+     * Three of a kind = One free euro
+     * Two of a kind = Free fifty cent
+     *
+     * @param one   First slot
+     * @param two   Second slot
+     * @param three Third slot
+     * @return Message
+     */
     public String CheckPrize(ImageIcon one, ImageIcon two, ImageIcon three) {
         if (one != null || two != null || three != null) {
 
@@ -88,26 +120,37 @@ public class SlotMachineActive implements SlotMachineState {
                 InsertCurrency(new FiftyCent());
             }
         }
-
         return null;
     }
 
+    //No Jackpot (wrong state)
     public boolean IsJackpot() {
         return false;
     }
 
+    /**
+     * Return image description (name of image without path or extension)
+     *
+     * @param image Image to use
+     * @return Description
+     */
     private String ImageToString(ImageIcon image) {
         return (image.getDescription().split("/")[1]).split(".png")[0];
     }
 
 
+    /**
+     * Iterator for images/icons
+     */
     private class Icons implements SystemIterator {
 
+        //Create array of images and their respective file names
         ImageIcon[] icons = new ImageIcon[9];
         String[] iconNames = {"banana", "bar", "berry", "bigwin", "cherry", "lemon", "melon", "orange", "seven"};
         String path = "icons/";
         String ext = ".png";
 
+        //Load the images
         Icons() {
             LoadIcons();
         }
@@ -119,6 +162,7 @@ public class SlotMachineActive implements SlotMachineState {
             }
         }
 
+        //Return as Iterator
         public Iterator CreateIterator() {
             return Arrays.asList(icons).iterator();
         }

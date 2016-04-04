@@ -3,7 +3,7 @@ package SystemIterator;
 import java.util.Iterator;
 
 /**
- * Iterator Pattern.
+ * Interface for Iterator
  */
 public interface SystemIterator {
     Iterator CreateIterator();
