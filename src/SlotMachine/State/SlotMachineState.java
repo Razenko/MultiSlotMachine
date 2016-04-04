@@ -9,11 +9,15 @@ import javax.swing.*;
  */
 public interface SlotMachineState {
 
-    public ImageIcon GetSlotImage();
+    ImageIcon GetSlotImage();
 
-    public String InsertCurrency(Currency currency);
+    String InsertCurrency(Currency currency);
 
-    public String RemoveCurrency(Currency currency);
+    String RemoveCurrency(Currency currency);
+
+    String CheckPrize(ImageIcon one, ImageIcon two, ImageIcon three);
+
+    boolean IsJackpot();
 
 
 }

@@ -9,24 +9,31 @@ import javax.swing.*;
  * WinPrize State for SlotMachine.
  */
 public class SlotMachineWinPrize implements SlotMachineState {
-    SlotMachineModel slotMachine;
+    private SlotMachineModel slotMachine;
 
     public SlotMachineWinPrize(SlotMachineModel slotMachine) {
         this.slotMachine = slotMachine;
     }
 
-    @Override
     public ImageIcon GetSlotImage() {
-        return null;
+        String path = "icons/";
+        String ext = ".png";
+        return new ImageIcon(path + "x" + ext);
     }
 
-    @Override
     public String InsertCurrency(Currency currency) {
         return null;
     }
 
-    @Override
     public String RemoveCurrency(Currency currency) {
         return null;
+    }
+
+    public String CheckPrize(ImageIcon one, ImageIcon two, ImageIcon three) {
+        return null;
+    }
+
+    public boolean IsJackpot() {
+        return true;
     }
 }

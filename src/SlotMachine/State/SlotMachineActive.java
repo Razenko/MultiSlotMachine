@@ -1,6 +1,8 @@
 package SlotMachine.State;
 
 import Currency.Currency;
+import Currency.FiftyCent;
+import Currency.OneEuro;
 import SlotMachine.SlotMachineModel;
 import SystemIterator.SystemIterator;
 
@@ -14,7 +16,7 @@ import java.util.Random;
  */
 public class SlotMachineActive implements SlotMachineState {
 
-    SlotMachineModel slotMachine;
+    private SlotMachineModel slotMachine;
 
     public SlotMachineActive(SlotMachineModel slotMachine) {
         this.slotMachine = slotMachine;
@@ -22,7 +24,7 @@ public class SlotMachineActive implements SlotMachineState {
 
     public ImageIcon GetSlotImage() {
         SystemIterator icons = new Icons();
-        Iterator currentIcons = icons.createIterator();
+        Iterator currentIcons = icons.CreateIterator();
         Random rnd = new Random();
         int rnum = rnd.nextInt(9);
         int count = 0;
@@ -40,7 +42,7 @@ public class SlotMachineActive implements SlotMachineState {
 
     }
 
-    @Override
+
     public String InsertCurrency(Currency currency) {
         if (!slotMachine.CheckCashFull()) {
             this.slotMachine.AddCash(currency);
@@ -65,14 +67,48 @@ public class SlotMachineActive implements SlotMachineState {
     }
 
 
-    class Icons implements SystemIterator {
+    public String CheckPrize(ImageIcon one, ImageIcon two, ImageIcon three) {
+        if (one != null || two != null || three != null) {
+
+            String oneValue = ImageToString(one);
+            String twoValue = ImageToString(two);
+            String threeValue = ImageToString(three);
+
+            if (oneValue.matches("bigwin") && twoValue.matches("bigwin") && threeValue.matches("bigwin")) {
+                return "Boom Jackpot!";
+            } else if (oneValue.matches(twoValue) && twoValue.matches(threeValue)) {
+                InsertCurrency(new OneEuro());
+            }
+
+            if (oneValue.matches(twoValue) || oneValue.matches(threeValue)) {
+                InsertCurrency(new FiftyCent());
+            }
+
+            if (twoValue.matches(threeValue) || twoValue.matches(oneValue)) {
+                InsertCurrency(new FiftyCent());
+            }
+        }
+
+        return null;
+    }
+
+    public boolean IsJackpot() {
+        return false;
+    }
+
+    private String ImageToString(ImageIcon image) {
+        return (image.getDescription().split("/")[1]).split(".png")[0];
+    }
+
+
+    private class Icons implements SystemIterator {
 
         ImageIcon[] icons = new ImageIcon[9];
         String[] iconNames = {"banana", "bar", "berry", "bigwin", "cherry", "lemon", "melon", "orange", "seven"};
         String path = "icons/";
         String ext = ".png";
 
-        public Icons() {
+        Icons() {
             LoadIcons();
         }
 
@@ -80,16 +116,11 @@ public class SlotMachineActive implements SlotMachineState {
             for (int i = 0; i < iconNames.length; i++) {
                 ImageIcon image = new ImageIcon(path + iconNames[i] + ext);
                 icons[i] = image;
-                // System.out.println(icons[i].getDescription());
             }
-
         }
 
-        @Override
-        public Iterator createIterator() {
+        public Iterator CreateIterator() {
             return Arrays.asList(icons).iterator();
         }
-
-
     }
 }

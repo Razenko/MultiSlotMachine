@@ -9,13 +9,12 @@ import javax.swing.*;
  * InActive State for SlotMachine.
  */
 public class SlotMachineInActive implements SlotMachineState {
-    SlotMachineModel slotMachine;
+    private SlotMachineModel slotMachine;
 
     public SlotMachineInActive(SlotMachineModel slotMachine) {
         this.slotMachine = slotMachine;
     }
 
-    @Override
     public ImageIcon GetSlotImage() {
         String path = "icons/";
         String ext = ".png";
@@ -23,7 +22,7 @@ public class SlotMachineInActive implements SlotMachineState {
         return new ImageIcon(path + "x" + ext);
     }
 
-    @Override
+
     public String InsertCurrency(Currency currency) {
         if (!slotMachine.CheckCashFull()) {
             this.slotMachine.AddCash(currency);
@@ -34,9 +33,16 @@ public class SlotMachineInActive implements SlotMachineState {
         }
     }
 
-    @Override
     public String RemoveCurrency(Currency currency) {
         return "Please enter some cash!";
+    }
+
+    public String CheckPrize(ImageIcon one, ImageIcon two, ImageIcon three) {
+        return null;
+    }
+
+    public boolean IsJackpot() {
+        return false;
     }
 
 

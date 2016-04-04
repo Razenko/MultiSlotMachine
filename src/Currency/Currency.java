@@ -4,7 +4,7 @@ package Currency;
  * Interface for Currency.
  */
 public interface Currency {
-    public int GetWeight();
+    int GetWeight();
 
-    public double Value();
+    double Value();
 }

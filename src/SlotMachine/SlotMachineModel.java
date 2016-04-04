@@ -4,7 +4,10 @@ import Currency.Currency;
 import Currency.FiftyCent;
 import Currency.OneEuro;
 import Currency.TwoEuros;
-import SlotMachine.State.*;
+import SlotMachine.State.SlotMachineActive;
+import SlotMachine.State.SlotMachineInActive;
+import SlotMachine.State.SlotMachineState;
+import SlotMachine.State.SlotMachineWinPrize;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -14,28 +17,29 @@ import java.util.ArrayList;
  * Model for SlotMachine.
  */
 public class SlotMachineModel {
-    static final int MAXWEIGHT = 100;
-    ArrayList<Currency> machineMoney;
-    SlotMachineState inActive;
-    SlotMachineState active;
-    SlotMachineState running;
-    SlotMachineState winPrize;
-    SlotMachineState currentState;
+    private static final int MAXWEIGHT = 100;
+    private ArrayList<Currency> machineMoney;
+    private SlotMachineState inActive;
+    private SlotMachineState active;
+    private SlotMachineState winPrize;
+    private SlotMachineState currentState;
+    private SlotMachineState lastState;
 
     public SlotMachineModel() {
         machineMoney = new ArrayList<>();
         inActive = new SlotMachineInActive(this);
         active = new SlotMachineActive(this);
-        running = new SlotMachineRunning(this);
         winPrize = new SlotMachineWinPrize(this);
         currentState = inActive;
     }
 
     public void SetState(SlotMachineState newState) {
+        lastState = currentState;
         currentState = newState;
     }
 
-    public ImageIcon GetRandomIcon() {
+
+    ImageIcon GetRandomIcon() {
         return currentState.GetSlotImage();
     }
 
@@ -51,7 +55,7 @@ public class SlotMachineModel {
     }
 
 
-    public String InsertCurrency(Currency currency) {
+    String InsertCurrency(Currency currency) {
         return currentState.InsertCurrency(currency);
     }
 
@@ -59,7 +63,7 @@ public class SlotMachineModel {
         machineMoney.add(currency);
     }
 
-    public String RemoveCurrency(Currency currency) {
+    String RemoveCurrency(Currency currency) {
         return currentState.RemoveCurrency(currency);
 
     }
@@ -96,6 +100,10 @@ public class SlotMachineModel {
 
     }
 
+    boolean IsJackpot() {
+        return currentState.IsJackpot();
+    }
+
 
     public void RemoveCash(Currency currency) {
         if (!machineMoney.isEmpty()) {
@@ -108,9 +116,6 @@ public class SlotMachineModel {
             }
             machineMoney.remove(removeCash);
         }
-
-        // machineMoney.remove(currency);
-
     }
 
     public void ClearCurrency() {
@@ -126,46 +131,12 @@ public class SlotMachineModel {
     }
 
     public boolean CheckCashFull() {
-        if (GetTotalWeight() > MAXWEIGHT) {
-            return true;
-        }
-        return false;
-    }
-
-    private String ImageToString(ImageIcon image) {
-        return (image.getDescription().split("/")[1]).split(".png")[0];
+        return GetTotalWeight() > MAXWEIGHT;
     }
 
 
-    public String CheckPrize(ImageIcon one, ImageIcon two, ImageIcon three) {
-        //System.out.println("null");
-        if (one != null || two != null || three != null) {
-            //System.out.println("not null");
-
-            String oneValue = ImageToString(one);
-            String twoValue = ImageToString(two);
-            String threeValue = ImageToString(three);
-            //System.out.println(oneValue + " " + twoValue + " " + threeValue);
-
-            if (oneValue.matches("bigwin") && twoValue.matches("bigwin") && threeValue.matches("bigwin")) {
-                return "Boom Jackpot!";
-            } else if (oneValue.matches(twoValue) && twoValue.matches(threeValue)) {
-                InsertCurrency(new OneEuro());
-            }
-
-            if (oneValue.matches(twoValue) || oneValue.matches(threeValue)) {
-                InsertCurrency(new FiftyCent());
-                //System.out.println("Smallprize");
-            }
-
-            if (twoValue.matches(threeValue) || twoValue.matches(oneValue)) {
-                InsertCurrency(new FiftyCent());
-                //System.out.println("Smallprize");
-            }
-        }
-        return null;
-
-
+    String CheckPrize(ImageIcon one, ImageIcon two, ImageIcon three) {
+        return currentState.CheckPrize(one, two, three);
     }
 
 
@@ -177,12 +148,12 @@ public class SlotMachineModel {
         return active;
     }
 
-    public SlotMachineState getRunning() {
-        return running;
-    }
-
     public SlotMachineState getWinPrize() {
         return winPrize;
+    }
+
+    public SlotMachineState getLastState() {
+        return lastState;
     }
 
 

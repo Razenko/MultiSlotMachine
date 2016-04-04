@@ -11,14 +11,10 @@ public class SlotMachineSubject implements Subject {
     private boolean isJackpot;
     private int number;
 
-
-    @Override
     public void register(Observer o) {
         observers.add(o);
     }
 
-
-    @Override
     public void unregister(Observer o) {
         int observerIndex = observers.indexOf(o);
         observers.remove(observerIndex);
@@ -28,7 +24,6 @@ public class SlotMachineSubject implements Subject {
         return observers;
     }
 
-    @Override
     public void notifyObserver() {
         if (!observers.isEmpty()) {
             for (Observer observer : observers) {

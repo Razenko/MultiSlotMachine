@@ -32,8 +32,6 @@ public class SlotMachineObserver implements Observer {
         isJackpot = false;
     }
 
-
-    @Override
     public void Update(int number, double cash, boolean isJackpot) {
         this.number = number;
         this.cash = cash;

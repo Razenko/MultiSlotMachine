@@ -18,7 +18,6 @@ public class SlotMachineController {
     private int SlotMachineNumber;
     private SlotMachineSubject subject;
     private double LastCurrency = 0;
-    private boolean IsJackpot = false;
 
     public SlotMachineController(SlotMachineModel slotMachineModel, SlotMachineView slotMachineView, int number) {
         this.slotMachineModel = slotMachineModel;
@@ -46,17 +45,16 @@ public class SlotMachineController {
     }
 
     public void ClearJackpot() {
-        IsJackpot = false;
+        slotMachineModel.SetState(slotMachineModel.getLastState());
     }
 
     public boolean IsJackpot() {
-        return IsJackpot;
+        return slotMachineModel.IsJackpot();
     }
 
 
     public SlotMachineSubject getSubject() {
         return subject;
-        //return null;
     }
 
     public double GetLastCurrency() {
@@ -79,76 +77,59 @@ public class SlotMachineController {
         return SlotMachineNumber;
     }
 
-    class SpinListener implements ActionListener {
+    private class SpinListener implements ActionListener {
 
-        @Override
         public void actionPerformed(ActionEvent e) {
 
             try {
-
                 String message = slotMachineModel.RemoveCurrency(new FiftyCent());
                 slotMachineView.SetSlots(slotMachineModel.GetRandomIcon(), slotMachineModel.GetRandomIcon(), slotMachineModel.GetRandomIcon());
                 String prizeMessage = slotMachineModel.CheckPrize(slotMachineView.GetSlotNumber(1), slotMachineView.GetSlotNumber(2), slotMachineView.GetSlotNumber(3));
                 slotMachineView.SetCashLabel(String.valueOf(slotMachineModel.ReturnTotalCash()));
                 subject.setWin(false);
-
                 if (message != null) {
                     slotMachineView.DisplayErrorMessage(message);
                 }
                 if (prizeMessage != null) {
                     subject.setWin(true);
-                    IsJackpot = true;
+                    slotMachineModel.SetState(slotMachineModel.getWinPrize());
                     slotMachineView.DisplayErrorMessage(prizeMessage);
                 }
             } catch (Exception ex) {
                 slotMachineView.DisplayErrorMessage("Uh oh! Something went wrong with spinning!! :" + ex);
-
             }
         }
     }
 
-    class FiftyEuroCentListener implements ActionListener {
+    private class FiftyEuroCentListener implements ActionListener {
 
-        @Override
         public void actionPerformed(ActionEvent e) {
-
-
             try {
-
                 AddCash(new FiftyCent());
-
-
             } catch (Exception ex) {
                 slotMachineView.DisplayErrorMessage("Uh oh! Something went wrong with cash insertion!!");
-
             }
         }
     }
 
-    class OneEuroListener implements ActionListener {
+    private class OneEuroListener implements ActionListener {
 
-        @Override
         public void actionPerformed(ActionEvent e) {
-
             try {
                 AddCash(new OneEuro());
             } catch (Exception ex) {
                 slotMachineView.DisplayErrorMessage("Uh oh! Something went wrong with spinning!!");
-
             }
         }
     }
 
-    class TwoEuroListener implements ActionListener {
+    private class TwoEuroListener implements ActionListener {
 
-        @Override
         public void actionPerformed(ActionEvent e) {
-
             try {
                 AddCash(new TwoEuros());
             } catch (Exception ex) {
                 slotMachineView.DisplayErrorMessage("Uh oh! Something went wrong with spinning!!");
-
             }
         }
     }

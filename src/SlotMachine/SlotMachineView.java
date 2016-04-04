@@ -20,23 +20,16 @@ public class SlotMachineView extends JFrame {
 
 
     public SlotMachineView(int xLocation, int yLocation, String title) {
+        InitGui(xLocation, yLocation, title);
+    }
+
+    private void InitGui(int xLocation, int yLocation, String title) {
         JPanel sPanel = new JPanel();
         sPanel.setLayout(null);
-        // JPanel iPanel1 = new JPanel(null);
-        //JLabel jLabel = new JLabel("meow");
-        //  JLabel jLabel2 = new JLabel("meow1");
-        //  JLabel jLabel3 = new JLabel("meow2");
-        // iPanel1.add(jLabel);
-        // iPanel1.add(jLabel2);
-        // iPanel1.add(jLabel3);
-        //iPanel1.setLocation(10,20);
-        //iPanel1.setBorder(BorderFactory.createBevelBorder(1));
-        //iPanel1.setSize(100,200);
         sPanel.add(iconOne);
         sPanel.add(iconTwo);
         sPanel.add(iconThree);
         sPanel.setBackground(Color.decode("#f5f6f7"));
-        // sPanel.setLocation(100,200);
         iconOne.setBounds(50, 100, 100, 100);
         iconTwo.setBounds(175, 100, 100, 100);
         iconThree.setBounds(300, 100, 100, 100);
@@ -48,12 +41,9 @@ public class SlotMachineView extends JFrame {
         sPanel.add(oneEuroButton);
         sPanel.add(twoEuroButton);
         sPanel.add(cashLabel);
-
         spinButton.setText("Spin!");
-
         spinButton.setBounds(125, 225, 100, 100);
         spinButton.setSize(new Dimension(200, 50));
-
         fiftyCentButton.setBounds(310, 300, 100, 100);
         fiftyCentButton.setSize(new Dimension(50, 50));
         oneEuroButton.setBounds(370, 300, 100, 100);
@@ -63,21 +53,17 @@ public class SlotMachineView extends JFrame {
         cashLabel.setBounds(370, 225, 100, 100);
         cashLabel.setSize(new Dimension(100, 50));
         cashLabel.setFont(new Font("SERIF", Font.BOLD, 18));
-
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(500, 400);
         this.setLocation(xLocation, yLocation);
         this.setTitle(title);
         this.setResizable(false);
         this.add(sPanel);
-        //this.add(iPanel1);
-        //this.pack();
         ImageLoader();
         this.setVisible(true);
     }
 
-    public void SetSlots(ImageIcon one, ImageIcon two, ImageIcon three) {
+    void SetSlots(ImageIcon one, ImageIcon two, ImageIcon three) {
         iconOne.setIcon(one);
         iconTwo.setIcon(two);
         iconThree.setIcon(three);
@@ -94,7 +80,7 @@ public class SlotMachineView extends JFrame {
         this.dispose();
     }
 
-    public ImageIcon GetSlotNumber(int number) {
+    ImageIcon GetSlotNumber(int number) {
 
         if (number == 1) {
             return (ImageIcon) iconOne.getIcon();
@@ -108,7 +94,7 @@ public class SlotMachineView extends JFrame {
         return null;
     }
 
-    public void SetCashLabel(String value) {
+    void SetCashLabel(String value) {
         cashLabel.setText("Cash: €" + value);
         cashLabel.revalidate();
         cashLabel.repaint();
@@ -136,8 +122,7 @@ public class SlotMachineView extends JFrame {
         twoEuroButton.addActionListener(listen);
     }
 
-
-    public void DisplayErrorMessage(String errorMessage) {
+    void DisplayErrorMessage(String errorMessage) {
         JOptionPane.showMessageDialog(this, errorMessage);
     }
 
