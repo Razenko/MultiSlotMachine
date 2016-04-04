@@ -5,6 +5,13 @@ import Master.MasterView;
 import java.awt.*;
 
 /**
+ * Multi SlotMachine.
+ * Design Patterns Eindopdracht.
+ * Student: Marcel Schoeber
+ * Studentnummer: 331910
+ */
+
+/**
  * Main Class
  * Starts up SlotMachine Manager (Master)
  */

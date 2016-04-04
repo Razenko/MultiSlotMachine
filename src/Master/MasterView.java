@@ -3,6 +3,12 @@ package Master;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+/**
+ * Multi SlotMachine.
+ * Design Patterns Eindopdracht.
+ * Student: Marcel Schoeber
+ * Studentnummer: 331910
+ */
 
 /**
  * View for Master.

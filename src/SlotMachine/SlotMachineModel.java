@@ -11,7 +11,12 @@ import SlotMachine.State.SlotMachineWinPrize;
 
 import javax.swing.*;
 import java.util.ArrayList;
-
+/**
+ * Multi SlotMachine.
+ * Design Patterns Eindopdracht.
+ * Student: Marcel Schoeber
+ * Studentnummer: 331910
+ */
 
 /**
  * Model for SlotMachine.

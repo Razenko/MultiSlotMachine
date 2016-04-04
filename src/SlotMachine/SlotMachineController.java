@@ -8,6 +8,12 @@ import Observer.SlotMachineSubject;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+/**
+ * Multi SlotMachine.
+ * Design Patterns Eindopdracht.
+ * Student: Marcel Schoeber
+ * Studentnummer: 331910
+ */
 
 /**
  * Controller for SlotMachine.

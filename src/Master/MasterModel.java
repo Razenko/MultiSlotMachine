@@ -7,6 +7,12 @@ import SlotMachine.SlotMachineModel;
 import SlotMachine.SlotMachineView;
 
 import java.util.ArrayList;
+/**
+ * Multi SlotMachine.
+ * Design Patterns Eindopdracht.
+ * Student: Marcel Schoeber
+ * Studentnummer: 331910
+ */
 
 /**
  * Model for Master.
