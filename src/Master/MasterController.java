@@ -69,10 +69,12 @@ public class MasterController {
      * Remove all machines and reset jackpot
      */
     private void RemoveMachines() {
-        mModel.RemoveMachines();
-        mView.ToggleOkButton();
-        ResetCash();
-        mView.SetJackpot(mModel.GetTotalCash());
+        if (mModel.GetMachines().size() > 0) {
+            mModel.RemoveMachines();
+            mView.ToggleOkButton();
+            ResetCash();
+            mView.SetJackpot(mModel.GetTotalCash());
+        }
     }
 
     /**
