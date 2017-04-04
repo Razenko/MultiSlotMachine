@@ -2,8 +2,6 @@
 MultiSlotMachine is a project made by students of [Stenden University](https://stenden.com/) as part of the computer science course. 
 The project is written in [Java](https://www.java.com).
 
-[Click here for the latest precomiled release!](https://github.com/Razenko/MultiSlotMachine/releases)
-
 ### Usage
 Since the project is created in [Jetbrains IntelliJ IDEA](https://www.jetbrains.com/idea/) the easiest way to run the application is to import it directly in IntelliJ. Obviously other Java IDE's can be used as well. **Make sure the latest Java SDK is installed!** 
 
